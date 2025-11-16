@@ -1,5 +1,5 @@
 fn main() {
-    example3();
+    example6();
 }
 
 fn _example1() {
@@ -30,12 +30,42 @@ fn _example2() {
     // So s1 is freed from memory during let s2 = s1
 }
 
-fn example3() {
+fn _example3() {
     // This works:
     let s1 = String::from("Hello");
     let s2 = s1.clone();
     println!("s1: {s1}, s2: {s2}");
     // clone() creates a copy of the string in the heap, at a different location
+}
+
+fn _example4() {
+    // Like in example2, this does NOT work:
+    /*
+        let s = String::from("Hello");  // s enters scope
+        some_function(s);               // s leave's scope -- some_function(s) takes ownership
+        some_other_function(s); // error here
+    
+     */
+}
+
+fn _example5() {
+    let s1 = String::from("Hello");     // s1 enters scope
+
+    let s2 = example_function(s1);      // example_function takes ownership of s1,
+                                        // and then copies s1 to s2 which is in scope
+    println!("{s2}");                   // print works correctly
+
+    fn example_function(s: String) -> String {
+        // s enters scope here
+
+        return s // s enters scope of calling function
+    }
+}
+
+fn example6() {
+    let s = String::from("Hello");
+    println!("{s}");
+    println!("{s}");
 }
 
 
