@@ -1,5 +1,5 @@
 fn main() {
-    example6();
+    example7();
 }
 
 fn _example1() {
@@ -62,10 +62,22 @@ fn _example5() {
     }
 }
 
-fn example6() {
+fn _example6() {
     let s = String::from("Hello");
     println!("{s}");
     println!("{s}");
 }
 
+// Borrowing
+fn example7() {
+    let s1 = String::from("Hello");
 
+    let len = calc_length(&s1);
+
+    println!("The length of {s1} is {len}");
+
+    fn calc_length(s: &String) -> usize {
+        s.len()
+    }
+    // &s1 is a reference to s1. This allows calc_length() to access s1 without taking ownership
+}
