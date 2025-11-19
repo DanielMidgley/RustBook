@@ -81,3 +81,24 @@ fn example7() {
     }
     // &s1 is a reference to s1. This allows calc_length() to access s1 without taking ownership
 }
+
+fn _example8() {
+    // This does not work:
+    /* 
+    let mut s = String::from("Hello");
+
+    let r1 = &mut s;
+    let r2 = &mut s;
+
+    println!("{r1}, {r2}");
+    */
+    // You cannot have multiple mutable references to the same value
+
+    // This does work:
+    let mut s = String::from("Hello");
+    {
+        let r1 = &mut s;
+    }
+    let r2 = &mut s;
+
+}
