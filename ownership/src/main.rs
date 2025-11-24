@@ -1,5 +1,5 @@
 fn main() {
-    example7();
+    slices();
 }
 
 fn _example1() {
@@ -69,7 +69,7 @@ fn _example6() {
 }
 
 // Borrowing
-fn example7() {
+fn _example7() {
     let s1 = String::from("Hello");
 
     let len = calc_length(&s1);
@@ -97,8 +97,27 @@ fn _example8() {
     // This does work:
     let mut s = String::from("Hello");
     {
-        let r1 = &mut s;
+        let _r1 = &mut s;
     }
-    let r2 = &mut s;
+    let _r2 = &mut s;
 
+}
+
+fn slices() {
+    fn first_word(s: &String) -> &str {
+        let bytes = s.as_bytes();
+
+        for (i, &item) in bytes.iter().enumerate() {
+            if item == b' ' {
+                return &s[0..i];
+            }
+        }
+
+        &s[..]
+    }
+
+    let s = String::from("Hello World");
+    let word = first_word(&s);
+
+    println!("{word}");
 }
